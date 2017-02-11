@@ -29,7 +29,6 @@ class CreateForeignKeys extends Migration
 
       Schema::table('items', function($table) {
         $table->foreign('location_id')->references('id')->on('locations');
-        $table->foreign('hidden')->references('id')->on('environment_interactions');
       });
 
       Schema::table('item_interactions', function($table) {

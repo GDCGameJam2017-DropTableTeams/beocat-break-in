@@ -4,7 +4,6 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-use App\EnvironmentInteractions;
 use App\Locations;
 
 class Items extends Model
@@ -17,13 +16,9 @@ class Items extends Model
    * @var array
    */
   protected $fillable = [
-      'name', 'properties', 'environment_interactions', 'location_id'
+      'name', 'properties', 'environment_interaction', 'location_id'
     ];
 
-  public function environment_interactions()
-  {
-    return $this->hasMany('App\EnvironmentInteractions');
-  }
 
   public function location_id()
   {
