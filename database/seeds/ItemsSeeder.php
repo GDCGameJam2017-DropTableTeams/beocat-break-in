@@ -17,13 +17,13 @@ class ItemsSeeder extends Seeder
       $locations = Locations::get(); //do a get() here instead of a first() then loop through
 
       $values = array(0, 4, 8, 9, 10, 12, 13);
-      $one = array('name' => 'Leaf Blower', 'properties' => 'test', 'environment_interaction' => 0);
-      $five = array('name' => 'Formula One Car', 'properties' => 'test', 'environment_interaction' => 0);
-      $nine = array('name' => 'Beocat', 'properties' => 'test', 'environment_interaction' => 0);
-      $ten = array('name' => 'Laptop', 'properties' => 'test', 'environment_interaction' => 0);
-      $eleven = array('name' => 'Networking Cables', 'properties' => 'test', 'environment_interaction' => 0);
-      $thirteen = array('name' => 'Soldering Iron', 'properties' => 'test', 'environment_interaction' => 0);
-      $fourteen = array('name' => 'Air Vents', 'properties' => 'test', 'environment_interaction' => 0);
+      $one = array('name' => 'Leaf Blower', 'properties' => 'The leaf blower is a standard leaf blower and has no gas.', 'environment_interaction' => 0);
+      $five = array('name' => 'Formula One Car', 'properties' => 'You look in the gas tank and see that it’s full of gas.', 'environment_interaction' => 0);
+      $nine = array('name' => 'Beocat', 'properties' => 'The supercomputer looks to be in bad shape.', 'environment_interaction' => 0);
+      $ten = array('name' => 'Laptop', 'properties' => 'The laptop is running windows vista but looks usable', 'environment_interaction' => 0);
+      $eleven = array('name' => 'Networking Cables', 'properties' => 'A bundle of networking cables', 'environment_interaction' => 0);
+      $thirteen = array('name' => 'Soldering Iron', 'properties' => 'A soldering iron that is ready to be used', 'environment_interaction' => 0);
+      $fourteen = array('name' => 'Air Vents', 'properties' => 'A ventilation system useful for removing fumes from the building.', 'environment_interaction' => 0);
 
 
 
