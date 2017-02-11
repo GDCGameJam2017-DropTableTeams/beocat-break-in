@@ -4,7 +4,24 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class text_commands extends Model
+use App\Games;
+
+class TextCommands extends Model
 {
-    //
+  protected $table = 'text_commands';
+
+  /**
+   * The attributes that are mass assignable.
+   *
+   * @var array
+   */
+  protected $fillable = [
+      'command', 'game_id'
+    ];
+
+  public function game_id()
+  {
+    return $this->belongsTo('App\Games');
+  }
+
 }

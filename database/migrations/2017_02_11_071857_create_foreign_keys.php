@@ -20,7 +20,7 @@ class CreateForeignKeys extends Migration
       });
 
       Schema::table('games', function($table) {
-        $table->foreign('curr_loc')->references('id')->on('locations');
+        $table->foreign('current_location')->references('id')->on('locations');
       });
 
       Schema::table('text_commands', function($table) {
@@ -30,10 +30,6 @@ class CreateForeignKeys extends Migration
       Schema::table('items', function($table) {
         $table->foreign('location_id')->references('id')->on('locations');
         $table->foreign('hidden')->references('id')->on('environment_interactions');
-      });
-
-      Schema::table('outs', function($table) {
-        $table->foreign('loc')->references('id')->on('locations');
       });
 
       Schema::table('item_interactions', function($table) {
@@ -49,7 +45,7 @@ class CreateForeignKeys extends Migration
 
       Schema::table('game_saves', function($table) {
         $table->foreign('game_id')->references('id')->on('games');
-        $table->foreign('curr_loc')->references('id')->on('locations');
+        $table->foreign('current_location')->references('id')->on('locations');
       });
     }
 

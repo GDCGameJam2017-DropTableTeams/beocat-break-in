@@ -16,7 +16,7 @@ class CreateGameSavesTable extends Migration
       Schema::create('game_saves', function (Blueprint $table) {
         $table->increments('id');
         $table->integer('game_id')->unsigned();
-        $table->integer('curr_loc')->unsigned();
+        $table->integer('current_location')->unsigned();
       });
 
 

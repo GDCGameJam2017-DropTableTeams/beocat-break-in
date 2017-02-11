@@ -15,7 +15,7 @@ class CreateGamesTable extends Migration
     {
       Schema::create('games', function (Blueprint $table) {
         $table->increments('id');
-        $table->integer('curr_loc')->unsigned();
+        $table->integer('current_location')->unsigned();
         $table->integer('game_saves')->default('0');
         $table->boolean('chaos')->default('0');
         $table->boolean('inondation')->default('0');

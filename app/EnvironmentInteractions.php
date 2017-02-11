@@ -4,7 +4,10 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class environment_interactions extends Model
+use App\Games;
+use App\Items;
+
+class EnvironmentInteractions extends Model
 {
   protected $table = 'environment_interactions';
 
