@@ -19,6 +19,7 @@ class CreateGamesTable extends Migration
         $table->integer('game_saves')->default('0');
         $table->boolean('chaos')->default('0');
         $table->boolean('inondation')->default('0');
+        $table->string('name');
       });
 
 

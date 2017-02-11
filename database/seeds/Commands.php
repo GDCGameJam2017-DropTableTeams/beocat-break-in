@@ -12,9 +12,29 @@ class Commands extends Seeder
     public function run()
     {
       DB::table('commands')->insert([
-            ['name' => ''],
-            ['name' => ''],
-
+            ['name' => 'Go'],
+            ['name' => 'Up'],
+            ['name' => 'Down'],
+            ['name' => 'North'],
+            ['name' => 'South'],
+            ['name' => 'East'],
+            ['name' => 'West'],
+            ['name' => 'In'],
+            ['name' => 'Out'],
+            ['name' => 'Look'],
+            ['name' => 'Examine'],
+            ['name' => 'Take'],
+            ['name' => 'Drop'],
+            ['name' => 'Kill'],
+            ['name' => 'Wait'],
+            ['name' => 'Wear'],
+            ['name' => 'Use'],
+            ['name' => 'Help'],
+            ['name' => 'Inventory'],
+            ['name' => 'Save'],
+            ['name' => 'Load'],
+            ['name' => 'Reset'],
+            ['name' => 'Quit']
         ]);
     }
 }
