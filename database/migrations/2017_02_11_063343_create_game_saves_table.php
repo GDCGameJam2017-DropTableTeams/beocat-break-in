@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePasswordResetsTable extends Migration
+class CreateGameSavesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,14 @@ class CreatePasswordResetsTable extends Migration
      */
     public function up()
     {
-        Schema::create('password_resets', function (Blueprint $table) {
-            $table->string('email')->index();
-            $table->string('token')->index();
-            $table->timestamp('created_at')->nullable();
-        });
+      Schema::create('game_saves', function (Blueprint $table) {
+        $table->increments('id');
+        $table->integer('game_id')->unsigned();
+        $table->integer('curr_loc')->unsigned();
+      });
+
+
+
     }
 
     /**
@@ -27,6 +30,7 @@ class CreatePasswordResetsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('password_resets');
+        Schema::disableForeignKeyConstraints();
+        Schema::drop('game_saves');
     }
 }
