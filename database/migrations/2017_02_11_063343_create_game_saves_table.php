@@ -17,6 +17,7 @@ class CreateGameSavesTable extends Migration
         $table->increments('id');
         $table->integer('game_id')->unsigned();
         $table->integer('current_location')->unsigned();
+        $table->timestamps();
       });
 
 

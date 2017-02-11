@@ -17,6 +17,7 @@ class CreateTextCommandsTable extends Migration
         $table->increments('id');
         $table->string('command');
         $table->integer('game_id')->unsigned();
+        $table->timestamps();
       });
 
 

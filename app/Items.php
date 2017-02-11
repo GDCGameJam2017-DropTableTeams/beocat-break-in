@@ -20,7 +20,7 @@ class Items extends Model
     ];
 
 
-  public function location_id()
+  public function location()
   {
     return $this->belongsTo('App\Locations');
   }

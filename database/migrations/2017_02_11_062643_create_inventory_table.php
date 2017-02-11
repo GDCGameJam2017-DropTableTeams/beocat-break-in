@@ -18,6 +18,7 @@ class CreateInventoryTable extends Migration
         $table->integer('item_id')->unsigned();
         $table->integer('game_id')->unsigned();
         $table->integer('game_save_id')->unsigned();
+        $table->timestamps();
       });
 
 

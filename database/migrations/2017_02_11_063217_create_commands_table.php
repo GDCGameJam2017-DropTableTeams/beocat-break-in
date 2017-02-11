@@ -16,6 +16,7 @@ class CreateCommandsTable extends Migration
       Schema::create('commands', function (Blueprint $table) {
         $table->increments('id');
         $table->string('name');
+        $table->timestamps();
       });
 
     }

@@ -18,6 +18,7 @@ class CreateItemInteractionsTable extends Migration
         $table->integer('item_one')->unsigned();
         $table->integer('item_two')->unsigned();
         $table->string('result');
+        $table->timestamps();
       });
 
 

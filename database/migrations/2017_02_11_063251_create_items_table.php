@@ -19,6 +19,7 @@ class CreateItemsTable extends Migration
         $table->string('properties');
         $table->integer('location_id')->unsigned();
         $table->boolean('environment_interaction');
+        $table->timestamps();
       });
 
 
