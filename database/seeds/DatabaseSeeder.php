@@ -15,6 +15,8 @@ class DatabaseSeeder extends Seeder
         //$this->call(Commands::class);
         $this->call(LocationsSeeder::class);
         $this->call(ItemsSeeder::class);
+        $this->call(EnvironmentInteractions::class);
+        $this->call(ItemInteractions::class);
 
     }
 }
