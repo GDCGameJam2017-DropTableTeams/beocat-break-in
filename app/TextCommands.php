@@ -19,7 +19,7 @@ class TextCommands extends Model
       'command', 'game_id'
     ];
 
-  public function game_id()
+  public function gameId()
   {
     return $this->belongsTo('App\Games');
   }

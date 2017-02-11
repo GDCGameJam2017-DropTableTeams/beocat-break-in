@@ -19,12 +19,12 @@ class GameSaves extends Model
       'game_id', 'current_location'
   ];
 
-  public function game_id()
+  public function gameId()
   {
     return $this->belongsTo('App\Games');
   }
 
-  public function current_location()
+  public function currentLocation()
   {
     return $this->belongsTo('App\Games');
   }

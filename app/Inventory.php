@@ -21,17 +21,17 @@ class Inventory extends Model
         'item_id', 'game_id', 'game_save_id'
       ];
 
-    public function item_id()
+    public function itemId()
     {
       return $this->hasOne('App\Items');
     }
 
-    public function game_id()
+    public function gameId()
     {
       return $this->belongsTo('App\Games');
     }
 
-    public function game_save_id()
+    public function gameSaveId()
     {
       return $this->belongsTo('App\GameSaves');
     }

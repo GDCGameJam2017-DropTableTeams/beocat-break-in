@@ -19,12 +19,12 @@ class ItemInteractions extends Model
         'item_one', 'item_two', 'result'
       ];
 
-    public function item_one()
+    public function itemOne()
     {
       return $this->belongsTo('App\Items');
     }
 
-    public function item_two()
+    public function itemTwo()
     {
       return $this->belongsTo('App\Items');
     }

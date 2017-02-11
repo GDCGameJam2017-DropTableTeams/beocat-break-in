@@ -19,7 +19,7 @@ class Games extends Model
       'current_location', 'game_saves', 'chaos', 'inondation'
     ];
 
-  public function current_location()
+  public function currentLocation()
   {
     return $this->hasOne('App\Locations');
   }

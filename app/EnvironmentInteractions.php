@@ -20,17 +20,17 @@ class EnvironmentInteractions extends Model
       'game_id', 'item1', 'item2'
     ];
 
-  public function game_id()
+  public function gameId()
   {
     return $this->belongsTo('App\Games');
   }
 
-  public function item_one()
+  public function itemOne()
   {
     return $this->belongsTo('App\Items');
   }
 
-  public function item_two()
+  public function itemTwo()
   {
     return $this->belongsTo('App\Items');
   }
