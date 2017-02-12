@@ -20,6 +20,12 @@ class CreateOutsTable extends Migration
         $table->integer('next_location_id')->unsigned();
         $table->timestamps();
       });
+
+      Schema::table('outs', function($table) {
+        $table->foreign('location_id')->references('id')->on('locations');
+        $table->foreign('next_location_id')->references('id')->on('locations');
+      });
+
     }
 
     /**

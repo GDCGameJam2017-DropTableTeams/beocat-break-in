@@ -2,7 +2,9 @@
 
 namespace App;
 
+use App\Locations;
 use Illuminate\Database\Eloquent\Model;
+
 
 class Outs extends Model
 {
@@ -14,18 +16,18 @@ class Outs extends Model
    * @var array
    */
   protected $fillable = [
-      'location_id', 'out', 'next_location_id'
+      'out', 'location_id', 'next_location_id'
     ];
 
 
   public function locationId()
   {
-    return $this->belongsTo('App\Locations');
+    return $this->belongsTo('App\Locations', 'location_id');
   }
 
   public function nextLocationId()
   {
-    return $this->belongsTo('App\Locations');
+    return $this->belongsTo('App\Locations', 'next_location_id');
   }
 
 }
