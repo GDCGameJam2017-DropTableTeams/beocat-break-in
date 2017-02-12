@@ -167,18 +167,21 @@ class OutTableSeeder extends Seeder
 
       /*************/
       //cs dept
-      $loc25 = new Outs;
-      $loc25->out = $down['out'];
-      $loc25->locationId()->associate($locations[$loc_values[9]]);
-      $loc25->nextLocationId()->associate($locations[$loc_values[1]]); //atrium
-      $loc25->save();
-
       $loc26 = new Outs;
       $loc26->out = $up['out'];
       $loc26->locationId()->associate($locations[$loc_values[9]]);
       $loc26->nextLocationId()->associate($locations[$loc_values[11]]); //ece dept
       $loc26->save();
 
+
+      $loc25 = new Outs;
+      $loc25->out = $down['out'];
+      $loc25->locationId()->associate($locations[$loc_values[9]]);
+      $loc25->nextLocationId()->associate($locations[$loc_values[1]]); //atrium
+      $loc25->save();
+
+
+      
       $loc27 = new Outs;
       $loc27->out = $east['out'];
       $loc27->locationId()->associate($locations[$loc_values[9]]);
