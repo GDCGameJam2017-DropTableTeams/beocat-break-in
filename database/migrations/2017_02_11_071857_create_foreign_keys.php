@@ -46,6 +46,11 @@ class CreateForeignKeys extends Migration
         $table->foreign('game_id')->references('id')->on('games');
         $table->foreign('current_location')->references('id')->on('locations');
       });
+
+      Schema::table('outs', function($table) {
+        $table->foreign('location_id')->references('id')->on('locations');
+        $table->foreign('next_location_id')->references('id')->on('locations');
+      });
     }
 
     /**
