@@ -28,13 +28,11 @@ class APIController extends Controller
     $new_game->currentLocation()->associate($start_location);
     if($request->header('alexa-id') != null){
       $new_game->alexa_id = $request->header('alexa-id');
-      //$this->DeleteGame($request->header('alexa-id'));
     }
     $new_game->name = $request->header('game-name');
     $new_game->save();
 
-    $intro = "";
-    //$intro = "You’re the systems administrator on duty in the K-State Computer Science department and you just got the call that someone broke in and destroyed Beocat, the second largest supercomputing cluster in Kansas. It’s up to you to find and repair Beocat to get it back up and running. You’ll need resources from different engineering disciplines to accomplish the task at hand. Good luck!";
+    $intro = "You’re the systems administrator on duty in the K-State Computer Science department and you just got the call that someone broke in and destroyed Beocat, the second largest supercomputing cluster in Kansas. It’s up to you to find and repair Beocat to get it back up and running. You’ll need resources from different engineering disciplines to accomplish the task at hand. Good luck!";
     $user_response = $this->DefaultResponse($new_game->id);
     return response()->json(['game-id' => $new_game->id, 'intro' => $intro, 'user-response' => $user_response]);
   }
@@ -44,7 +42,6 @@ class APIController extends Controller
     $current_game = $this->GetGame($request->header('game-id'));
     $game_id = $current_game->id;
     $user_request[] = explode(" ", strtolower($request->header('user-request')));
-    $user_response = $user_request[0][1];
     switch($user_request[0][0])
     {
       case "go":
@@ -121,13 +118,9 @@ class APIController extends Controller
   // ---- ---- ----- ----
   //Returns the current game.
   public function GetGame($game_id){
-    try{
-      $game_id = intval($game_id);
-    } catch (Exception $e){
-
-    }
-    if(is_int($game_id)){
-      return Games::with('currentLocation')->where('id', $game_id)->first();
+    $game_val = intval($game_id);
+    if($game_val > 0){
+      return Games::with('currentLocation')->where('id', $game_val)->first();
     } else {
       return Games::with('currentLocation')->where('alexa_id', $game_id)->first();
     }
@@ -157,8 +150,8 @@ class APIController extends Controller
     $outs = $current_game->currentLocation->outs;
     $user_response;
     if (strpos(strtolower($outs), $direction) !== false) {
-      $new_location = Outs::with('locationId', 'nextLocationId')->where('location_id', $current_game->currentLocation)->where('out', $direction)->first();
-      $current_game->currentLocation()->associate($new_location);
+      $move_info = Outs::with('locationId', 'nextLocationId')->where('location_id', $current_game->currentLocation->id)->where('out', $direction)->first();
+      $current_game->currentLocation()->associate($move_info->next_location_id);
       $current_game->save();
       $user_response = $this->DefaultResponse($game_id);
     } else {
@@ -186,7 +179,7 @@ class APIController extends Controller
     foreach($commands as $command){
       $names[] = $command->name;
     }
-    $user_response .= implode($names);
+    $user_response .= implode(', ', $names);
     $default = $this->DefaultResponse($game_id);
     return $user_response." ".$default;
   }

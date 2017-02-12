@@ -19,14 +19,14 @@ class OutTableSeeder extends Seeder
       $locations = Locations::all();
 
       $loc_values = array(0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13);
-      $in = array('out' => 'In');
-      $up = array('out' => 'Up');
-      $down = array('out' => 'Down');
-      $north = array('out' => 'North');
-      $south = array('out' => 'South');
-      $east = array('out' => 'East');
-      $west = array('out' => 'West');
-      $out = array('out' => 'Out');
+      $in = array('out' => 'in');
+      $up = array('out' => 'up');
+      $down = array('out' => 'down');
+      $north = array('out' => 'north');
+      $south = array('out' => 'south');
+      $east = array('out' => 'east');
+      $west = array('out' => 'west');
+      $out = array('out' => 'out');
 
       //courtyard
       $loc = new Outs;
