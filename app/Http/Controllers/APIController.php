@@ -28,7 +28,7 @@ class APIController extends Controller
     $new_game->currentLocation()->associate($start_location);
     if($request->header('alexa-id') != null){
       $new_game->alexa_id = $request->header('alexa-id');
-      $this->DeleteGame($request->header('alexa-id'));
+      //$this->DeleteGame($request->header('alexa-id'));
     }
     $new_game->name = $request->header('game-name');
     $new_game->save();
@@ -44,11 +44,12 @@ class APIController extends Controller
     $current_game = $this->GetGame($request->header('game-id'));
     $game_id = $current_game->id;
     $user_request[] = explode(" ", strtolower($request->header('user-request')));
-    switch($user_request[0])
+    $user_response = $user_request[0][1];
+    switch($user_request[0][0])
     {
       case "go":
       case "move":
-        switch($user_request[1])
+        switch($user_request[0][1])
         {
           case "up":    //go/move up
           case "down":  //go/move down
@@ -58,7 +59,7 @@ class APIController extends Controller
           case "west":  //go/move west
           case "in":    //go/move in
           case "out":   //go/move out
-            $user_response = $this->Move($game_id, $alexa_id, $user_request[1]);
+            $user_response = $this->Move($game_id, $user_request[0][1]);
             break;
           default:
             $user_response = "I don't know where that is.";
@@ -67,7 +68,7 @@ class APIController extends Controller
         break;
       case "look":      //look at x
       case "examine":   //examine x
-        $user_response = $this->Examine($game_id, $alexa_id, $user_request[1]);
+        $user_response = $this->Examine($game_id, $user_request[0][1]);
         break;
       case "take":      //take x
         break;
@@ -120,6 +121,11 @@ class APIController extends Controller
   // ---- ---- ----- ----
   //Returns the current game.
   public function GetGame($game_id){
+    try{
+      $game_id = intval($game_id);
+    } catch (Exception $e){
+
+    }
     if(is_int($game_id)){
       return Games::with('currentLocation')->where('id', $game_id)->first();
     } else {
@@ -151,14 +157,14 @@ class APIController extends Controller
     $outs = $current_game->currentLocation->outs;
     $user_response;
     if (strpos(strtolower($outs), $direction) !== false) {
-      $new_location = Outs::with('currentLocation', 'nextLocation')->where('currentLocation', $current_game->currentLocation)->where('out', $direction)->first();
+      $new_location = Outs::with('locationId', 'nextLocationId')->where('location_id', $current_game->currentLocation)->where('out', $direction)->first();
       $current_game->currentLocation()->associate($new_location);
+      $current_game->save();
       $user_response = $this->DefaultResponse($game_id);
     } else {
       $user_response = "You can't go that way! Outs are: ".$outs;
     }
-    $default = $this->DefaultResponse($game_id);
-    return $user_response." ".$default;
+    return $user_response;
   }
 
   //Looks at something
