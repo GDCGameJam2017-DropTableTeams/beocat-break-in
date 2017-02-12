@@ -1,0 +1,8 @@
+BeginGame start new game {GameName}
+
+EndGame end game
+EndGame stop game
+
+PlayGame {move} {location}
+PlayGame {move} {item}
+PlayGame {move}

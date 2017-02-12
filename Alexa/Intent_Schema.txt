@@ -1,0 +1,33 @@
+{
+  "intents": [
+    {
+      "intent": "BeginGame",
+      "slots":[
+        {
+          "name": "GameName",
+          "type": "AMAZON.US_FIRST_NAME"
+        }
+      ]
+    },
+    {
+      "intent": "EndGame"
+    },
+    {
+      "intent": "PlayGame",
+      "slots":[
+        {
+          "name": "move",
+          "type": "MOVES"
+        },
+        {
+          "name": "location",
+          "type": "LOCATIONS"
+        },
+        {
+          "name": "item",
+          "type": "ITEMS"
+        }
+      ]
+    }
+  ]
+}
