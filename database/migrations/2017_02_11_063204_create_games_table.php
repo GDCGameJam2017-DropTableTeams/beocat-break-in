@@ -20,6 +20,7 @@ class CreateGamesTable extends Migration
         $table->boolean('chaos')->default('0');
         $table->boolean('inondation')->default('0');
         $table->string('name');
+        $table->string('alexa_id')->nullable();
         $table->timestamps();
       });
 
