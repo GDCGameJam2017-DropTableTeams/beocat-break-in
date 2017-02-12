@@ -21,7 +21,7 @@ class LocationsSeeder extends Seeder
             ['name' => 'Long Hallway', 'properties' => 'You are standing in a long hallway.', 'outs' => 'North, East, West'],
             ['name' => 'Sass', 'properties' => 'You are standing in the SAS Tutoring room.', 'outs' => 'South'],
             ['name' => 'Server Room', 'properties' => 'You are standing in the server room of ENGINEERING. The backup generator failed and it’s pitch black. It’s 2 spooky 4 u so you leave the room.', 'outs' => 'East'],
-            ['name' => 'Computer Science Department', 'properties' => 'You are standing in the Computer Science department. There is a large staircase and laptop here.', 'outs' => 'Up, East'],
+            ['name' => 'Computer Science Department', 'properties' => 'You are standing in the Computer Science department. There is a large staircase and laptop here.', 'outs' => 'Up, East, Down'],
             ['name' => 'System Administration Office', 'properties' => 'You are standing in your office. There are networking cables here.', 'outs' => 'West'],
             ['name' => 'E C E Department', 'properties' => 'You are standing in the Electrical and Computer Engineering department.', 'outs' => 'West, Up, Down'],
             ['name' => 'E C E Lab', 'properties' => 'You are standing in the Electrical and Computer Engineering lab. There is a soldering iron and a fuse here.', 'outs' => 'East'],
