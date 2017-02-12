@@ -21,7 +21,7 @@ class Games extends Model
 
   public function currentLocation()
   {
-    return $this->hasOne('App\Locations');
+    return $this->belongsTo('App\Locations', 'current_location');
   }
 
 }
