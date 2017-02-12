@@ -155,7 +155,8 @@ class APIController extends Controller
       $current_game->save();
       $user_response = $this->DefaultResponse($game_id);
     } else {
-      $user_response = "You can't go that way! Outs are: ".$outs;
+      $user_response = "You can't go that way!";
+      $user_response .= $this->DefaultResponse($game_id);
     }
     return $user_response;
   }
@@ -187,13 +188,14 @@ class APIController extends Controller
   //Returns the players inventory.
   public function Inventory($game_id){
     $current_game = $this->GetGame($game_id);
-    $inventory = Inventory::with('itemId', 'gameId', 'gameSaveId')->where('gameId', $current_game->id)->get();
+    $inventory = Inventory::with('itemId', 'gameId', 'gameSaveId')->where('game_id', $current_game->id)->get();
     $user_response = "Your inventory contains: ";
     $names = array();
     foreach($inventory as $item){
       $names[] = $item->name;
     }
     $user_response .= implode($names);
+    $user_response .= ". ";
     $default = $this->DefaultResponse($game_id);
     return $user_response." ".$default;
   }
