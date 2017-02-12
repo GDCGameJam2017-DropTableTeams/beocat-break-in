@@ -124,9 +124,9 @@ class APIController extends Controller
   //Returns the current game.
   public function GetGame($game_id){
     if(is_int($game_id)){
-      return Game::with('currentLocation')->where('id', $game_id)->first();
+      return Games::with('currentLocation')->where('id', $game_id)->first();
     } else {
-      return Game::with('currentLocation')->where('alexa_id', $game_id)->first();
+      return Games::with('currentLocation')->where('alexa_id', $game_id)->first();
     }
   }
 
