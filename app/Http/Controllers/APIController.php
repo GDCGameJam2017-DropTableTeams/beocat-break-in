@@ -28,11 +28,13 @@ class APIController extends Controller
     $new_game->currentLocation()->associate($start_location);
     if($request->header('alexa-id') != null){
       $new_game->alexa_id = $request->header('alexa-id');
+      $this->DeleteGame($request->header('alexa-id'));
     }
     $new_game->name = $request->header('game-name');
     $new_game->save();
 
-    $intro = "You’re the systems administrator on duty in the K-State Computer Science department and you just got the call that someone broke in and destroyed Beocat, the second largest supercomputing cluster in Kansas. It’s up to you to find and repair Beocat to get it back up and running. You’ll need resources from different engineering disciplines to accomplish the task at hand. Good luck!";
+    $intro = "";
+    //$intro = "You’re the systems administrator on duty in the K-State Computer Science department and you just got the call that someone broke in and destroyed Beocat, the second largest supercomputing cluster in Kansas. It’s up to you to find and repair Beocat to get it back up and running. You’ll need resources from different engineering disciplines to accomplish the task at hand. Good luck!";
     $user_response = $this->DefaultResponse($new_game->id);
     return response()->json(['game-id' => $new_game->id, 'intro' => $intro, 'user-response' => $user_response]);
   }
@@ -105,13 +107,7 @@ class APIController extends Controller
   //Deletes game information for the specified game id. Thanks the user for playing.
   public function End(Request $request)
   {
-    $game_id = $request->header('game-id');
-    Inventory::where('game_id', $game_id)->delete();
-    GameSaves::where('game_id', $game_id)->delete();
-    TextCommands::where('game_id', $game_id)->delete();
-    EnvironmentInteractions::where('game_id', $game_id)->delete();
-    Games::where('id', $game_id)->delete();
-
+    $this->DeleteGame($request->header('game-id'));
     $user_response = "Your game has ended. Thank's for playing Beocat Break In!";
     return response()->json(['game-id' => $request->game_id, 'user-response' => $user_response]);
   }
@@ -128,6 +124,15 @@ class APIController extends Controller
     } else {
       return Games::with('currentLocation')->where('alexa_id', $game_id)->first();
     }
+  }
+
+  public function DeleteGame($game_id){
+    $game_id = $this->GetGame($game_id)->id;
+    Inventory::where('game_id', $game_id)->delete();
+    GameSaves::where('game_id', $game_id)->delete();
+    TextCommands::where('game_id', $game_id)->delete();
+    EnvironmentInteractions::where('game_id', $game_id)->delete();
+    Games::where('id', $game_id)->delete();
   }
 
   //Generates a string with the current location, visible items in the location, and the exits.
