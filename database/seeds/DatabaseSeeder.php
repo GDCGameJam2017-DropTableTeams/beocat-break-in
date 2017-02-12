@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
         $this->call(ItemsSeeder::class);
         $this->call(ItemInteractionsSeeder::class);
         $this->call(Commands::class);
+        $this->call(OutTableSeeder::class);
 
     }
 }

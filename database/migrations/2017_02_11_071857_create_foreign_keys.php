@@ -46,6 +46,8 @@ class CreateForeignKeys extends Migration
         $table->foreign('game_id')->references('id')->on('games');
         $table->foreign('current_location')->references('id')->on('locations');
       });
+
+      //check the outs table migration for the foreign keys lmao
     }
 
     /**
