@@ -41,7 +41,8 @@ class APIController extends Controller
 
   public function Play(Request $request)
   {
-    $game_id = $this->GetGame($request->header('game-id'))->id;
+    $current_game = $this->GetGame($request->header('game-id'));
+    $game_id = $current_game->id;
     $user_request[] = explode(" ", strtolower($request->header('user-request')));
     switch($user_request[0])
     {
@@ -127,7 +128,8 @@ class APIController extends Controller
   }
 
   public function DeleteGame($game_id){
-    $game_id = $this->GetGame($game_id)->id;
+    $current_game = $this->GetGame($game_id);
+    $game_id = $current_game->id;
     Inventory::where('game_id', $game_id)->delete();
     GameSaves::where('game_id', $game_id)->delete();
     TextCommands::where('game_id', $game_id)->delete();
