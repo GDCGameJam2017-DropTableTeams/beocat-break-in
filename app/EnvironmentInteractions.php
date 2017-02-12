@@ -17,7 +17,7 @@ class EnvironmentInteractions extends Model
    * @var array
    */
   protected $fillable = [
-      'game_id', 'item1', 'item2'
+      'game_id', 'item_one_id', 'item_two_id'
     ];
 
   public function gameId()

@@ -16,8 +16,8 @@ class CreateEnvironmentInteractionsTable extends Migration
       Schema::create('environment_interactions', function (Blueprint $table) {
         $table->increments('id');
         $table->integer('game_id')->unsigned();
-        $table->integer('item_one')->unsigned();
-        $table->integer('item_two')->unsigned();
+        $table->integer('item_one_id')->unsigned();
+        $table->integer('item_two_id')->unsigned();
         $table->timestamps();
       });
 
