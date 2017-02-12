@@ -33,9 +33,8 @@ function buildResponse(sessionAttributes, speechletResponse) {
 function getWelcomeResponse(callback) {
     const sessionAttributes = {};
     const cardTitle = 'Welcome';
-    const speechOutput = 'Welcome to the Baeocat Break In.';
-    const repromptText = 'You can start a game by saying, ' +
-        'begin game test';
+    const speechOutput = 'Welcome to the Beocat Break In.';
+    const repromptText = 'You can create a game by saying, begin game, followed by your name.';
     const shouldEndSession = false;
 
     callback(sessionAttributes,
@@ -44,7 +43,7 @@ function getWelcomeResponse(callback) {
 
 function handleSessionEndRequest(callback) {
     const cardTitle = 'Game Ended';
-    const speechOutput = 'Thank you for playing Baeocat Break In.';
+    const speechOutput = 'Thank you for playing Beocat Break In!';
     const shouldEndSession = true;
 
     callback({}, buildSpeechletResponse(cardTitle, speechOutput, null, shouldEndSession));
@@ -60,11 +59,16 @@ function inSession(intent, session, callback) {
         var route = "/api/begin";
         var url = {url: host+route, headers: {'game-name' : gameName}};
         apiRequest(url, function(error, response, body) {
-            console.info(body);
+            if(error != null){
+              console.error("ERROR: "+error);
+            }
+            console.info("RESPONSE: "+response);
+            console.info("BODY: "+body);
             var data = JSON.parse(body);
-            var result = data['game-name'];
-            var speechOutput = "Your game " + result + " has been created!";
-            callback({}, buildSpeechletResponse(cardTitle, speechOutput, '', true));
+            var user_response = data['user-response'];
+            var speechOutput = "Your game has been created!" + " " + user_response;
+            var repromptText = "You can hear available commands by saying, help.";
+            callback({}, buildSpeechletResponse(cardTitle, speechOutput, repromptText, false));
         });
         break;
       case "PlayGame":
