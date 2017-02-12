@@ -27,8 +27,9 @@ class APIController extends Controller
     $new_game->name = $request->header('game-name');
     $new_game->save();
 
+    $intro = "You’re the systems administrator on duty in the K-State Computer Science department and you just got the call that someone broke in and destroyed Beocat, the second largest supercomputing cluster in Kansas. It’s up to you to find and repair Beocat to get it back up and running. You’ll need resources from different engineering disciplines to accomplish the task at hand. Good luck!";
     $user_response = $this->DefaultResponse($new_game->id);
-    return response()->json(['game-id' => $new_game->id, 'user-response' => $user_response]);
+    return response()->json(['game-id' => $new_game->id, 'intro' => $intro, 'user-response' => $user_response]);
   }
 
   public function Play(Request $request)
@@ -114,7 +115,7 @@ class APIController extends Controller
   public function DefaultResponse($game_id){
     $current_game = Games::with('currentLocation')->where('id', $game_id)->first();
     $response = $current_game->currentLocation->properties;
-    $response .= " Outs are ".$current_game->currentLocation->outs;
+    $response .= " Outs are: ".$current_game->currentLocation->outs;
     return $response;
   }
 }
