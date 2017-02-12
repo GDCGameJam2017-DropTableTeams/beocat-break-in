@@ -4,18 +4,18 @@ var request = require("request");
 function buildSpeechletResponse(title, output, repromptText, shouldEndSession) {
     return {
         outputSpeech: {
-            type: 'PlainText',
-            text: output,
+            type: 'SSML',
+            ssml: output,
         },
         card: {
             type: 'Simple',
-            title: `SessionSpeechlet - ${title}`,
-            content: `SessionSpeechlet - ${output}`,
+            title: 'SessionSpeechlet - ${title}',
+            content: 'SessionSpeechlet - ${output}',
         },
         reprompt: {
             outputSpeech: {
-                type: 'PlainText',
-                text: repromptText,
+                type: 'SSML',
+                ssml: repromptText,
             },
         },
         shouldEndSession,
@@ -31,52 +31,53 @@ function buildResponse(sessionAttributes, speechletResponse) {
 }
 
 function getWelcomeResponse(callback) {
-    const sessionAttributes = {};
-    const cardTitle = 'Welcome';
-    const speechOutput = 'Welcome to the Beocat Break In.';
-    const repromptText = 'You can create a game by saying, begin game, followed by your name.';
-    const shouldEndSession = false;
-
-    callback(sessionAttributes,
-        buildSpeechletResponse(cardTitle, speechOutput, repromptText, shouldEndSession));
+    var cardTitle = 'Welcome';
+    var speechOutput = '<speak>Welcome to the Bayocat Break In.</speak>';
+    var repromptText = '<speak>You can create a game by saying, begin game, followed by your name.</speak>';
+    var shouldEndSession = false;
+    callback({}, buildSpeechletResponse(cardTitle, speechOutput, repromptText, shouldEndSession));
 }
 
 function handleSessionEndRequest(callback) {
-    const cardTitle = 'Game Ended';
-    const speechOutput = 'Thank you for playing Beocat Break In!';
-    const shouldEndSession = true;
-
-    callback({}, buildSpeechletResponse(cardTitle, speechOutput, null, shouldEndSession));
+    var cardTitle = 'Game Ended';
+    var speechOutput = '<speak>Thank you for playing Bayocat Break In!</speak>';
+    callback({}, buildSpeechletResponse(cardTitle, speechOutput, null, true));
 }
 
 function inSession(intent, session, callback) {
-    const cardTitle = intent.name;
-    const host = "https://testing.atodd.io";
+    var host = "https://testing.atodd.io";
 
-    switch(intent.name){
-      case "BeginGame":
-      var gameName = intent.slots.GameName.value;
-        var route = "/api/begin";
-        var url = {url: host+route, headers: {'game-name' : gameName}};
-        apiRequest(url, function(error, response, body) {
-            if(error != null){
-              console.error("ERROR: "+error);
-            }
-            console.info("RESPONSE: "+response);
-            console.info("BODY: "+body);
-            var data = JSON.parse(body);
-            var user_response = data['user-response'];
-            var speechOutput = "Your game has been created!" + " " + user_response;
-            var repromptText = "You can hear available commands by saying, help.";
-            callback({}, buildSpeechletResponse(cardTitle, speechOutput, repromptText, false));
-        });
-        break;
-      case "PlayGame":
-        var route = "/api/play";
-        break;
-      case "EndGame":
-        var route = "/api/end";
-        break;
+    switch (intent.name) {
+        case "BeginGame":
+            var cardTitle = "Begin Game";
+            var gameName = intent.slots.GameName.value;
+            var route = "/api/begin";
+            var url = {
+                url: host + route,
+                headers: {
+                    'game-name': gameName
+                }
+            };
+            apiRequest(url, function(error, response, body) {
+                if (error !== null) {
+                    console.error("ERROR: " + error);
+                }
+                console.info("RESPONSE: " + response);
+                console.info("BODY: " + body);
+                var data = JSON.parse(body);
+                var intro = data['intro'];
+                var user_response = data['user-response'];
+                var speechOutput = "<speak><p>Your game, " + gameName + ", has been created!</p><p>" + intro + "</p><p>" + user_response + "</p></speak>";
+                var repromptText = "<speak>You can hear available commands by saying, help.</speak>";
+                callback({}, buildSpeechletResponse(cardTitle, speechOutput, repromptText, false));
+            });
+            break;
+        case "PlayGame":
+            var route = "/api/play";
+            break;
+        case "EndGame":
+            var route = "/api/end";
+            break;
     }
 }
 
@@ -111,12 +112,12 @@ function onIntent(intentRequest, session, callback) {
 }
 
 function onSessionEnded(sessionEndedRequest, session) {
-    console.log(`onSessionEnded requestId=${sessionEndedRequest.requestId}, sessionId=${session.sessionId}`);
+    console.log('onSessionEnded requestId=${sessionEndedRequest.requestId}, sessionId=${session.sessionId}');
 }
 
 exports.handler = (event, context, callback) => {
     try {
-        console.log(`event.session.application.applicationId=${event.session.application.applicationId}`);
+        console.log('event.session.application.applicationId=${event.session.application.applicationId}');
         if (event.session.application.applicationId !== 'amzn1.ask.skill.25e6ef34-e26b-466b-85d3-7760e5dcdb97') {
             callback('Invalid Application ID');
         }
