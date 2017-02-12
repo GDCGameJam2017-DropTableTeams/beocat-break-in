@@ -11,7 +11,7 @@ class LocationsSeeder extends Seeder
      */
     public function run()
     {
-      DB::table('Locations')->insert([
+      DB::table('locations')->insert([
             ['name' => 'Engineering Courtyard', 'properties' => 'You are standing in the courtyard of ENGINEERING. There is a leaf blower here.', 'outs' => 'In'],
             ['name' => 'Engineering Atrium', 'properties' => 'You are standing in the middle of the new atrium. There is a large staircase here.', 'outs' => 'South, West, Up, Down, Out'],
             ['name' => 'Chemical Engineering Department', 'properties' => 'You are standing in the Chemical Engineering department. ', 'outs' => 'North, South'],
