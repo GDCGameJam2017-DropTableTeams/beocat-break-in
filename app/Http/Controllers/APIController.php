@@ -68,6 +68,7 @@ class APIController extends Controller
         $user_response = $this->Examine($game_id, $user_request[0][1]);
         break;
       case "take":      //take x
+        $user_response = $this->Take($game_id, $user_request[0][1]);
         break;
       case "drop":      //drop x
         break;
@@ -167,7 +168,7 @@ class APIController extends Controller
   }
 
   public function Wait($game_id){
-    $user_response = "Congradulations! You just wasted your turn.";
+    $user_response = "Congratulations! You just wasted your turn.";
     $default = $this->DefaultResponse($game_id);
     return $user_response." ".$default;
   }
@@ -228,6 +229,14 @@ class APIController extends Controller
     $current_game = $this->GetGame($game_id);
     $latest_save = GameSaves::where('gameId', $current_game->id)->first();
     //TODO
+  }
+
+  //Take an item
+  public function Take($game_id, $user_request){
+    $current_game = $this->GetGame($game_id);
+    $item_to_take = Items::where('name', $user_request)->first();
+
+    return "";
   }
 
   //Resets the game
