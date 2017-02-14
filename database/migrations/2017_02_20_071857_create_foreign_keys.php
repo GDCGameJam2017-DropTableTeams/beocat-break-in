@@ -47,7 +47,16 @@ class CreateForeignKeys extends Migration
         $table->foreign('current_location')->references('id')->on('locations');
       });
 
-      //check the outs table migration for the foreign keys lmao
+      Schema::table('outs', function($table) {
+        $table->foreign('location_id')->references('id')->on('locations');
+        $table->foreign('next_location_id')->references('id')->on('locations');
+      });
+
+      Schema::table('location_items', function($table) {
+        $table->foreign('item_id')->references('id')->on('items');
+        $table->foreign('location_id')->references('id')->on('locations');
+      });
+
     }
 
     /**
