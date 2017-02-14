@@ -14,6 +14,7 @@ use App\Inventory;
 use App\Items;
 use App\Outs;
 use App\TextCommands;
+use App\LocationItems;
 
 class APIController extends Controller
 {
@@ -144,6 +145,15 @@ class APIController extends Controller
   public function DefaultResponse($game_id){
     $current_game = $this->GetGame($game_id);
     $user_response = $current_game->currentLocation->properties;
+    $items = LocationItems::where('location_id', $current_game->currentLocation->id)->get();
+    foreach($items as $item) {
+      $inventory = Inventory::where('item_id', $item->item_id)->first();
+      //$temp = Inventory::where('item_id', $item->item_id->id)-first();
+      if(is_null($inventory)) {
+        $user_response .= " " .$item->properties .".";
+      }
+    }
+
     $user_response .= " Outs are: ".$current_game->currentLocation->outs;
     return $user_response;
   }
