@@ -30,6 +30,6 @@ class CreateLocationItemsTable extends Migration
     public function down()
     {
       Schema::disableForeignKeyConstraints();
-      Schema::drop('outs');
+      Schema::drop('location_items');
     }
 }
