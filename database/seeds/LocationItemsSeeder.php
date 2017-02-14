@@ -3,6 +3,8 @@
 use Illuminate\Database\Seeder;
 
 use App\LocationItems;
+use App\Locations;
+use App\Items;
 
 class LocationItemsSeeder extends Seeder
 {
@@ -53,5 +55,7 @@ class LocationItemsSeeder extends Seeder
       $location_item5->location()->associate($locations[$locations_rows[4]]);
       $location_item5->item()->associate($items[$items_rows[4]]);
       $location_item5->save();
+
+
     }
 }

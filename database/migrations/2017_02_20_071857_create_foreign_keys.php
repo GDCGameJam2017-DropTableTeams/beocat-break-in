@@ -33,7 +33,7 @@ class CreateForeignKeys extends Migration
 
       Schema::table('item_interactions', function($table) {
         $table->foreign('item_one_id')->references('id')->on('items');
-        $table->foreign('item_two_id')->references('id')->on('games');
+        $table->foreign('item_two_id')->references('id')->on('items');
       });
 
       Schema::table('environment_interactions', function($table) {

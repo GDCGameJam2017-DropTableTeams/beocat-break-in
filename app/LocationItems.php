@@ -9,6 +9,7 @@ use App\Locations;
 
 class LocationItems extends Model
 {
+
   protected $table = 'location_items';
 
   /**
@@ -16,6 +17,8 @@ class LocationItems extends Model
    *
    * @var array
    */
+
+
   protected $fillable = [
       'properties', 'location_id', 'item_id'
     ];
@@ -23,12 +26,12 @@ class LocationItems extends Model
 
   public function location()
   {
-    return $this->hasOne('App\Locations');
+    return $this->belongsTo('App\Locations');
   }
 
   public function item()
   {
-    return $this->hasMany('App\Items');
+    return $this->belongsTo('App\Items');
   }
 
 }
