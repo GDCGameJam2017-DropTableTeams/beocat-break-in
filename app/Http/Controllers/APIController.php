@@ -41,12 +41,15 @@ class APIController extends Controller
   {
     $current_game = $this->GetGame($request->header('game-id'));
     $game_id = $current_game->id;
-    $user_request[] = explode(" ", strtolower($request->header('user-request')));
-    switch($user_request[0][0])
+    $user_request = explode(" ", strtolower($request->header('user-request')));
+    $user_command = array_shift($user_request);
+    $user_content = implode(" ", $user_request);
+
+    switch($user_command)
     {
       case "go":
       case "move":
-        switch($user_request[0][1])
+        switch($user_content)
         {
           case "up":    //go/move up
           case "down":  //go/move down
@@ -56,7 +59,7 @@ class APIController extends Controller
           case "west":  //go/move west
           case "in":    //go/move in
           case "out":   //go/move out
-            $user_response = $this->Move($game_id, $user_request[0][1]);
+            $user_response = $this->Move($game_id, $user_content);
             break;
           default:
             $user_response = "I don't know where that is.";
@@ -65,10 +68,10 @@ class APIController extends Controller
         break;
       case "look":      //look at x
       case "examine":   //examine x
-        $user_response = $this->Examine($game_id, $user_request[0][1]);
+        $user_response = $this->Examine($game_id, $user_content);
         break;
       case "take":      //take x
-        $user_response = $this->Take($game_id, $user_request[0][1]);
+        $user_response = $this->Take($game_id, $user_content);
         break;
       case "drop":      //drop x
         break;
