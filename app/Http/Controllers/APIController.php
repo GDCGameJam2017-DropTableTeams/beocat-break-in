@@ -234,9 +234,12 @@ class APIController extends Controller
   //Take an item
   public function Take($game_id, $user_request){
     $current_game = $this->GetGame($game_id);
-    $item_to_take = Items::where('name', $user_request)->first();
+    //$item_to_take = Inventory::where('name', $user_request)->first();
+    //$item = Items::where('name', $user_request)->first();
 
-    return "";
+
+
+    return $user_request;
   }
 
   //Resets the game
