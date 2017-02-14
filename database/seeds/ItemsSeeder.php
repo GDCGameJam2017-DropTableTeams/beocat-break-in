@@ -25,7 +25,7 @@ class ItemsSeeder extends Seeder
       $thirteen = array('name' => 'Soldering Iron', 'properties' => 'A soldering iron that is ready to be used', 'environment_interaction' => 0);
       $fourteen = array('name' => 'Air Vents', 'properties' => 'A ventilation system useful for removing fumes from the building.', 'environment_interaction' => 0);
 
-      $env_values = array(0, 3, 4, 8, 8, 8, 12, 13);
+      $env_values = array(0, 3, 4, 8, 8, 8, 12, 13, 8);
       $env_one = array('name' => 'Empty Gas Tank', 'properties' => 'An empty gas tank.', 'environment_interaction' => 1);
       $env_four = array('name' => 'Siphon Pump', 'properties' => 'A pumped used to remove liquid from one container to another.', 'environment_interaction' => 1);
       $env_five = array('name' => 'Full Gas Tank', 'properties' => 'A full gas tank.', 'environment_interaction' => 1);
@@ -34,6 +34,7 @@ class ItemsSeeder extends Seeder
       $env_nine_c = array('name' => 'Ventilation System Switch', 'properties' => 'A switch to turn on and off the ventilation system.', 'environment_interaction' => 1);
       $env_thirteen = array('name' => '200 Amp Fuse', 'properties' => 'An unused 200A main fuse.', 'environment_interaction' => 1);
       $env_fourteen = array('name' => 'Air vents', 'properties' => 'A ventilation system useful for removing fumes from the building.', 'environment_interaction' => 1);
+      $env_fifteen = array('name' => 'Breaker Switch', 'properties' => 'A breaker switch.', 'environment_interaction' => 1);
 
 
 
@@ -93,7 +94,12 @@ class ItemsSeeder extends Seeder
       $env_item8->location()->associate($locations[$env_values[7]]);
       $env_item8->save();
 
-
+      $env_item9 = new Items;
+      $env_item9->name = $env_fifteen['name'];
+      $env_item9->properties = $env_fifteen['properties'];
+      $env_item9->environment_interaction = $env_fifteen['environment_interaction'];
+      $env_item9->location()->associate($locations[$env_values[8]]);
+      $env_item9->save();
 
 
 

@@ -23,7 +23,7 @@ class Inventory extends Model
 
     public function itemId()
     {
-      return $this->hasOne('App\Items');
+      return $this->belongsTo('App\Items');
     }
 
     public function gameId()

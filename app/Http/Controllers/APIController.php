@@ -31,7 +31,6 @@ class APIController extends Controller
     }
     $new_game->name = $request->header('game-name');
     $new_game->save();
-
     $intro = "You’re the systems administrator on duty in the K-State Computer Science department and you just got the call that someone broke in and destroyed Beocat, the second largest supercomputing cluster in Kansas. It’s up to you to find and repair Beocat to get it back up and running. You’ll need resources from different engineering disciplines to accomplish the task at hand. Good luck!";
     $user_response = $this->DefaultResponse($new_game->id);
     return response()->json(['game-id' => $new_game->id, 'intro' => $intro, 'user-response' => $user_response]);
@@ -44,6 +43,7 @@ class APIController extends Controller
     $user_request = explode(" ", strtolower($request->header('user-request')));
     $user_command = array_shift($user_request);
     $user_content = implode(" ", $user_request);
+
 
     switch($user_command)
     {
@@ -210,7 +210,7 @@ class APIController extends Controller
   //Saves the game.
   public function Save($game_id){
     $current_game = $this->GetGame($game_id);
-    if($current_game->game_saves < 3){
+    if($current_game->game_saves < 4){
       $current_save = GameSaves::where('game_id', $current_game->id)->delete();
       $new_save = new GameSaves();
       $new_save->gameId()->associate($current_game);
@@ -218,7 +218,7 @@ class APIController extends Controller
       $new_save->save();
       $current_game->game_saves++;
       $current_game->save();
-      $saves_left = 3 - $current_game->game_saves;
+      $saves_left = 4 - $current_game->game_saves;
       $user_response = "You have saved the game! You have ".$saves_left." game saves left.";
     } else {
       $user_response = "You don't have any save games left!";
@@ -230,19 +230,40 @@ class APIController extends Controller
   //Loads the most recent save.
   public function Load($game_id){
     $current_game = $this->GetGame($game_id);
-    $latest_save = GameSaves::where('gameId', $current_game->id)->first();
+    $latest_save = GameSaves::where('game_id', $current_game->id)->first();
     //TODO
   }
 
   //Take an item
   public function Take($game_id, $user_request){
     $current_game = $this->GetGame($game_id);
-    //$item_to_take = Inventory::where('name', $user_request)->first();
-    //$item = Items::where('name', $user_request)->first();
+    $item = Items::where('name', $user_request)->first();
+    $user_response = "";
+    if (is_null($item)) {
+      $user_response .= "Not a valid item!";
+
+    } else {
+      $item_in_inventory = Inventory::where('item_id', $item->id)->first();
+      if(is_null($item_in_inventory)) {
+        //not in inventory
+
+        $game_save = GameSaves::where('game_id', $current_game->id)->first();
+
+        $new_item = new Inventory();
+        $new_item->itemId()->associate($item);
+        $new_item->gameId()->associate($game_id);
+        $new_item->gameSaveId()->associate($game_save);
+        $new_item->save();
+        $user_response .= "You have picked up" . $user_request;
+      } else {
+        //is in inventory.
+        $user_response .= "You already have this in your inventory.";
+      }
+
+    }
 
 
-
-    return $user_request;
+    return $user_response;
   }
 
   //Resets the game
